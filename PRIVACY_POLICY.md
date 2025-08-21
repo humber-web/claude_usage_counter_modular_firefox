@@ -1,6 +1,6 @@
 # Privacy Policy - Claude Usage Counter Extension
 
-**Effective Date:** December 2024
+**Effective Date:** August 2025
 **Extension:** Claude Usage Counter (Modular, No API Key)
 
 ## Data Collection and Storage
@@ -54,8 +54,8 @@ Since all data remains local:
 Updates will be posted in extension releases and on the GitHub repository.
 
 ### Contact
-For privacy questions: [TODO: INSERT_CONTACT_EMAIL]
-Extension source code: [TODO: INSERT_GITHUB_URL]
+For privacy questions: pugarosabal@gmailcom
+Extension source code: git@github.com:humber-web/claude_usage_counter_modular_firefox.git
 
 ---
 **This extension is designed with privacy-first principles. Your data stays on your device, always.**
