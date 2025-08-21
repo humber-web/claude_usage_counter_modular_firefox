@@ -133,7 +133,7 @@ MIT License - see [LICENSE](LICENSE) file
 
 ## 📞 Support
 
-- **Issues**: [GitHub Issues](TODO: INSERT_GITHUB_URL/issues)
+- **Issues**: [GitHub Issues](git@github.com:humber-web/claude_usage_counter_modular_firefox.git/issues)
 - **Privacy Questions**: See [PRIVACY_POLICY.md](PRIVACY_POLICY.md)
 - **Feature Requests**: Welcome via GitHub Issues
 
