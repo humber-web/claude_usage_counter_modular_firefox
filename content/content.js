@@ -1,0 +1,3 @@
+hookAttachmentInputs();
+hookDraftEstimator();
+hookSend();

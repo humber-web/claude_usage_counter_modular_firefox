@@ -1,0 +1,81 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Claude Simulator (Modular)</title>
+<style>
+  body { font: 16px system-ui; background:#0f1218; color:#e6e6e6; display:flex; height:100vh; margin:0; }
+  .left { flex:1; display:flex; flex-direction:column; padding:16px; gap:12px; }
+  .feed { flex:1; overflow:auto; background:#0b0e14; border:1px solid #222; border-radius:10px; padding:12px; }
+  .bubble { max-width: 70%; margin:10px 0; padding:12px 14px; border-radius:12px; }
+  .user { background:#2a2f3a; margin-left:auto; }
+  .assistant { background:#1b2130; margin-right:auto; }
+  .composer { display:flex; gap:8px; align-items:flex-start; }
+  #composer { flex:1; min-height:90px; background:#141824; color:#eee; border:1px solid #2a2f3a; border-radius:12px; padding:10px; }
+  #send { padding:10px 16px; border-radius:10px; background:#4b79f7; color:white; border:0; }
+  #file { color:#ddd; }
+  .thumbs img { height:44px; border-radius:6px; margin-right:6px; border:1px solid #333; }
+</style>
+
+<div class="left">
+  <h2>Claude Simulator (Modular)</h2>
+  <div class="feed" id="feed"></div>
+  <div class="composer">
+    <textarea id="composer" placeholder="Type a message..."></textarea>
+    <div>
+      <input id="file" type="file" multiple>
+      <div class="thumbs" id="thumbs"></div>
+      <button id="send">Send</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const feed = document.getElementById('feed');
+  const composer = document.getElementById('composer');
+  const sendBtn = document.getElementById('send');
+  const fileInput = document.getElementById('file');
+  const thumbs = document.getElementById('thumbs');
+
+  function addBubble(txt, who){
+    const b = document.createElement('div');
+    b.className = 'bubble ' + who;
+    b.textContent = txt;
+    feed.appendChild(b);
+    feed.scrollTop = feed.scrollHeight;
+  }
+
+  fileInput.addEventListener('change', () => {
+    thumbs.innerHTML = '';
+    for (const f of fileInput.files){
+      if (f.type.startsWith('image/')){
+        const url = URL.createObjectURL(f);
+        const img = document.createElement('img');
+        img.src = url;
+        img.onload = () => URL.revokeObjectURL(url);
+        thumbs.appendChild(img);
+      } else {
+        const tag = document.createElement('span');
+        tag.textContent = f.name;
+        tag.style.marginRight = '6px';
+        thumbs.appendChild(tag);
+      }
+    }
+  });
+
+  sendBtn.addEventListener('click', () => {
+    const t = composer.value.trim();
+    if (!t && !fileInput.files.length) return;
+    const attachList = [...fileInput.files].map(f => f.name).join(', ');
+    addBubble((t || '(no text)') + (attachList ? ' [files: ' + attachList + ']' : ''), 'user');
+    composer.value = '';
+    fileInput.value = '';
+    thumbs.innerHTML = '';
+    setTimeout(()=> addBubble('Echo: ' + (t || '(no text)'), 'assistant'), 300);
+  });
+
+  composer.addEventListener('keydown', (e)=>{
+    if (e.key === 'Enter' && !e.shiftKey){
+      e.preventDefault();
+      sendBtn.click();
+    }
+  });
+</script>

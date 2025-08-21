@@ -1,0 +1,40 @@
+{
+  "manifest_version": 3,
+  "name": "Claude Usage Counter (Modular, No API Key)",
+  "version": "1.0.0",
+  "description": "Counts messages/text/file/image tokens with a 5h window. Modular code layout.",
+  "permissions": [
+    "storage",
+    "alarms"
+  ],
+  "host_permissions": [
+    "https://claude.ai/*"
+  ],
+  "background": {
+    "service_worker": "background/service_worker.js"
+  },
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "icon16.png",
+      "32": "icon32.png",
+      "48": "icon48.png",
+      "128": "icon128.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://claude.ai/*"
+      ],
+      "js": [
+        "content/util.js",
+        "content/draft.js",
+        "content/attach.js",
+        "content/send.js",
+        "content/content.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ]
+}
